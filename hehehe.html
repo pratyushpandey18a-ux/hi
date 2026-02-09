@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Valentines Day!</title>
+<div
+    style="
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    color: rgb(237, 204, 207);
+    ">
+    <div><h1>Find the right button</h1></div>
+</div>
+<style>
+    .moon-button{
+    position: absolute;
+    top: 448px;
+    left: 198px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 50;
+    background: transparent;
+}
+
+/* Tooltip */
+.tooltip{
+    position: absolute;
+    top: -32px;
+    left: -25px;
+    background: black;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+}
+
+.moon-button:hover .tooltip{
+    opacity: 1;   /* shows on hover */
+}
+
+
+    .side-character{
+    position: fixed;
+    bottom: 0;
+    left: 10px;
+    height: 60vh;
+    z-index: 5;
+    pointer-events: none;
+    animation: sway 4s ease-in-out infinite;
+}
+
+@keyframes sway{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+    100%{transform:translateY(0);}
+}
+
+    body{
+        margin:0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(120deg,#c73c4c,#f3919e);
+        overflow:hidden;
+        height:100vh;
+    }
+
+    /* Floating anime cats */
+    .cat{
+        position:absolute;
+        font-size:40px;
+        animation: float 10s linear infinite;
+        opacity:0.8;
+    }
+
+    @keyframes float{
+        0%{transform:translateY(100vh) rotate(0deg);}
+        100%{transform:translateY(-10vh) rotate(360deg);}
+    }
+
+    .container{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        text-align:center;
+        z-index:10;
+    }
+
+    button{
+        padding:15px 30px;
+        margin:20px;
+        border:none;
+        border-radius:30px;
+        font-size:18px;
+        cursor:pointer;
+        background:rgb(247, 162, 162);
+        box-shadow:0 5px 15px rgba(0,0,0,0.2);
+        transition:0.3s;
+    }
+
+    button:hover{
+        transform:scale(1.1);
+        background:#ffb6c1;
+    }
+
+    /* Envelope popup */
+    .popup{
+        position:fixed;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        background:white;
+        padding:30px;
+        width:300px;
+        border-radius:15px;
+        display:none;
+        box-shadow:0 10px 25px rgba(0,0,0,0.3);
+        animation:fadeIn 0.5s ease;
+        z-index:20;
+    }
+
+    @keyframes fadeIn{
+        from{opacity:0; transform:translate(-50%,-40%);}
+        to{opacity:1; transform:translate(-50%,-50%);}
+    }
+
+    /* Love letter */
+    .letter{
+        position:fixed;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%) scaleY(0);
+        transform-origin:top;
+        background:#edc7c7;
+        padding:40px;
+        width:400px;
+        border-radius:10px;
+        box-shadow:0 10px 25px hwb(0 100% 0% / 0.4);
+        transition:transform 1s ease;
+        z-index:20;
+    }
+
+    .letter.open{
+        transform:translate(-50%,-50%) scaleY(1);
+    }
+
+    .close{
+        margin-top:15px;
+        cursor:pointer;
+        color:rgb(244, 3, 3);
+        font-weight:bold;
+    }
+</style>
+</head>
+<body>
+
+<script>
+for(let i=0;i<25;i++){
+    let cat=document.createElement("div");
+    cat.className="cat";
+    cat.innerHTML="<3"; // you can change emoji if you want
+    cat.style.left=Math.random()*100+"vw";
+    cat.style.animationDuration=(5+Math.random()*10)+"s";
+    cat.style.fontSize=(30+Math.random()*30)+"px";
+    document.body.appendChild(cat);
+}
+</script>
+
+<div class="container">
+    <button onclick="openEnvelope('msg1')">If you love me</button>
+    <button onclick="openEnvelope('msgMiddle')">If you want to bite me</button>
+    <button onclick="openEnvelope('msg2')">If you want to beat me</button>
+</div>
+
+<div id="popup" class="popup">
+    <div id="popupText"></div>
+    <div class="close" onclick="closePopup()">Close</div>
+</div>
+
+<div id="letter" class="letter">
+    <h2>I love you!</h2>
+    <p>
+       This short letter is for my cutie Bangalan…<br><br>
+
+Hi Madam,<br><br>
+
+First of all, I want to apologize.<br>
+I know I trouble you a lot, and I have even hurt you many times. I know I am an idiot, and I am sorry for being like that.<br><br>
+
+Even after all these things, you are still with me, and for that, thank you. Thank you for jheling me, thank you for choosing me, and thank you for loving me.<br><br>
+
+Being with you makes me happy, talking with you brings me joy, and looking at you makes me forget everything (Not how you forget, but in a romantic way).<br><br>
+
+At last, HAPPY VALENTINE'S DAY!!! I love you, my cutie.<br><br>
+
+Yours,<br>
+Primatyush
+    </p>
+    <div class="close" onclick="closeLetter()">Close</div>
+</div>
+
+<script>
+    
+function openEnvelope(type){
+    let text="";
+    
+    if(type==="msg1"){
+    text="Good choice, but nope not the right button";
+}
+else if(type==="msg2"){
+    text="HEHEHEHEHEHE!! No, maybe ask Sesshoumaru🌙";
+}
+else if(type==="msgMiddle"){
+    text="Awww kitty!, but ato o simple noy re";
+}
+
+
+    document.getElementById("popupText").innerText=text;
+    document.getElementById("popup").style.display="block";
+}
+
+function closePopup(){
+    document.getElementById("popup").style.display="none";
+}
+
+function openLetter(){
+    document.getElementById("letter").classList.add("open");
+}
+
+function closeLetter(){
+    document.getElementById("letter").classList.remove("open");
+}
+</script>
+<div class="character-wrap">
+    <img src="pngaaa.com-921647.png" class="side-character">
+
+    <!-- Hidden moon button -->
+    <div class="moon-button" onclick="openLetter()">
+        <span class="tooltip">You found it!</span>
+    </div>
+</div>
+
+</body>
+</html>
